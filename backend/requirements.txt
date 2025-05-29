@@ -1,0 +1,8 @@
+Django==4.2.7
+requests==2.31.0
+pytest
+flake8==25.1.1
+djangorestframework==3.14.0
+pytest-django
+django-widget-tweaks==1.4.1
+python-dotenv
