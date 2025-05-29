@@ -2,5 +2,5 @@ from django.urls import include, path
 
 
 urlpatterns = [
-    path('', include('api.urls')),
+    path('', include('weather.urls')),
 ]

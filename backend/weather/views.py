@@ -4,7 +4,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from core.constants import GEOCODE_API_URL
+from core.constants import GEOCODE_API_URL, URL_OPEN_METEO
 from weather.forms import CityForm
 from weather.models import City
 
@@ -90,7 +90,7 @@ def index(request):
 def get_weather_data(latitude, longitude):
     """Получает данные о погоде по координатам, используя API Open-Meteo."""
     url = (
-        f'https://api.open-meteo.com/v1/forecast?latitude={latitude}'
+        f'{URL_OPEN_METEO}?latitude={latitude}'
         f'&longitude={longitude}&current=temperature_2m,rain,'
         f'wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,'
         f'precipitation_probability_max&timezone=Europe/Moscow'

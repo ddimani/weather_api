@@ -13,7 +13,7 @@ class WeatherAppTests(TestCase):
     def setUp(self):
         self.client = Client()
 
-    @patch('api.views.get_weather_data')
+    @patch('weather.views.get_weather_data')
     def test_index_view_with_invalid_city(self, mock_get_weather_data):
         """Тест отображения страницы с невалидным городом."""
         mock_get_weather_data.return_value = (None, 'Город не найден')

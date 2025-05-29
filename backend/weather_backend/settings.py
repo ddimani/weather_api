@@ -10,6 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-placeholder')
 
+BD_IS_SQLITE = os.getenv('BD_IS_SQLITE', 'False') == 'True'
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
@@ -22,9 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'weather.apps.WeatherConfig',
-    'api.apps.ApiConfig',
     'widget_tweaks'
 ]
 
@@ -58,12 +57,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'weather_backend.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+if BD_IS_SQLITE:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.getenv('POSTGRES_DB', 'weather'),
+                'USER': os.getenv('POSTGRES_USER', 'weather_user'),
+                'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'weather_password'),
+                'HOST': os.getenv('DB_HOST', ''),
+                'PORT': os.getenv('DB_PORT', 5432)
+            }
+    }
 
 
 AUTH_PASSWORD_VALIDATORS = [
